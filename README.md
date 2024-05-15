@@ -25,13 +25,29 @@ The questions can be found in questionnaire.rb
 
 Ensure we can run your exercise
 
-## Bonus Points
+## Explanation of implementation
 
-Updated readme with an explanation of your approach
+**Conducting Surveys:**
 
-Unit Tests
+- The do_prompt method initiates the survey process by iterating through each question in the QUESTIONS hash.
+- For each question, it prompts the user with the question text and records their response.
+- Responses are stored in a persistent data store using the PStore library.
 
-Code Comments
+**Recording Responses:**
 
-Dockerfile / Bash script if needed for us to run the exercise
+- The `record_response` method is responsible for recording user responses.
+- It receives the question key, the user's answer, and the store instance.
+- Within a transaction, it adds the user's response to the appropriate question key in the store.
 
+**Calculating Ratings:**
+
+- After all questions are answered, the calculate_ratings method calculates the rating for the current survey run.
+- It counts the number of "Yes" responses and computes the percentage of "Yes" responses out of the total number of questions.
+- Additionally, it calculates the average rating over all survey runs.
+
+**Generating Reports:**
+
+- The `do_report` method provides a summary report of survey data.
+- It checks if survey data is available in the store. If not, it displays a message indicating no data is available.
+- If data is available, it retrieves the total number of survey runs and calculates the average rating over all runs.
+- The report is displayed to the user.
